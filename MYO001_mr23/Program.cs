@@ -8,15 +8,84 @@
             // ConvertPracticies();
             // CalculatePay();
             // NotHesapla();
+
             // ManavUygulaması();
-
-
-
+            // PolinomHesapla();
+            // AyseTeyzeninPazarArabasi();
+            // IndirimUygula();
+            // DovizHesapla();
+            // YuzdeHesaplama();
         }
 
+        static void YuzdeHesaplama()
+        {
+            Console.WriteLine("KDV'siz fiyatını hesaplamak istediğiniz ürünün KDV oranını yüzde cinsinden giriniz: ");
+            double kdvOrani = 0.01 * (double.Parse(Console.ReadLine()));
+            Console.WriteLine("KDV'siz fiyatını hesaplamak istediğiniz ürünün KDV dahil fiyatını giriniz: ");
+            double kdvDahilFiyat = double.Parse(Console.ReadLine());
+            double hamDeger = kdvDahilFiyat / (1 + kdvOrani);
+            Console.WriteLine($"KDV'siz fiyat: {hamDeger}");
+        }
+        static void DovizHesapla()
+        {
+            Dictionary<string, double> doviz = new Dictionary<string, double>
+            {
+                { "Dolar", 36.42 }, { "Euro", 39.38 }, { "Altın (gram)", 3410.80 }
+            };
+
+            Console.WriteLine("Mart 2025 döviz fiyatları (alış): ");
+            foreach (var item in doviz)
+            {
+                Console.WriteLine($"{item.Key}: {(item.Value).ToString("0.00")}");
+            }
+
+            Console.WriteLine($"TL cinsinsen mevcut bakiyenizi giriniz: ");
+            double bakiye = double.Parse(Console.ReadLine());
+
+            Console.WriteLine("Bakiyenizin döviz karşılığı: ");
+            foreach (var item in doviz)
+            {
+                Console.WriteLine($"{item.Key}: {(bakiye / item.Value).ToString("0.00")}");
+            }
+        }
+        static void IndirimUygula()
+        {
+            Console.WriteLine("ŞOK İNDİRİM! NE ALIRSAN %35 İNDİRİM");
+            Console.Write($"Sepet Tutarınızı giriniz: ");
+            int secim = int.Parse(Console.ReadLine());
+            Console.WriteLine($"İndirimli Sepet Tutarınız: {secim * 0.65}");
+        }
+        static void AyseTeyzeninPazarArabasi()
+        {
+            Dictionary<string, double> meyveFiyatlari02 = new Dictionary<string, double>
+            {
+                { "elma", 0 }, { "portakal", 0 }, { "limon", 0 }
+            };
+
+            double sepetTutari02 = 0;
+            foreach (var meyve in meyveFiyatlari02)
+            {
+                Console.WriteLine($"{meyve.Key} kg fiyatını giriniz: ");
+                meyveFiyatlari02[meyve.Key] = Convert.ToDouble(Console.ReadLine());
+
+                Console.WriteLine($"{meyve.Key} ürününden kaç kg aldınız: ");
+                meyveFiyatlari02[meyve.Key] = (meyveFiyatlari02[meyve.Key]) * (Convert.ToDouble(Console.ReadLine()));
+
+                sepetTutari02 += meyveFiyatlari02[meyve.Key];
+            }
+
+            Console.WriteLine($"sepet tutarınız: {sepetTutari02} TL");
+        }
+        static void PolinomHesapla()
+        {
+            Console.Write("4x^3 + 3x^2 + 5x + 2 denkleminin sonucunu bulmak istediğiniz x kökünü giriniz: ");
+            int x = int.Parse(Console.ReadLine());
+            int sonuc = 4 * x * x * x + 3 * x * x + 5 * x + 2;
+            Console.WriteLine($"Sonuç: {sonuc}");
+        }
         static void ManavUygulaması()
         {
-            Dictionary<string, int> meyveFiyatlari = new Dictionary<string, int>
+            Dictionary<string, int> meyveFiyatlari01 = new Dictionary<string, int>
             {
                 { "elma", 200 }, { "armut", 240 }, { "muz", 160 }, { "kivi", 300 }, { "çilek", 150 }
             };
@@ -25,7 +94,7 @@
             List<string> sepet = new List<string>();
 
             Console.WriteLine("Meyve listesi: ");
-            foreach (var meyve in meyveFiyatlari)
+            foreach (var meyve in meyveFiyatlari01)
             {
                 Console.WriteLine($"{meyve.Key}: {meyve.Value} TL");
             }
@@ -41,9 +110,9 @@
                     break;
                 }
 
-                if (meyveFiyatlari.ContainsKey(secilenMeyve))
+                if (meyveFiyatlari01.ContainsKey(secilenMeyve))
                 {
-                    sepetTutari += meyveFiyatlari[secilenMeyve];
+                    sepetTutari += meyveFiyatlari01[secilenMeyve];
                     sepet.Add(secilenMeyve);
                     Console.WriteLine($"{secilenMeyve} sepete eklendi. Güncel sepet tutarı: {sepetTutari} TL");
                 }
@@ -85,6 +154,7 @@
 
             Console.WriteLine($"İndirimli sepet tutarı: {sepetTutari} TL");
         }
+
         static void NotHesapla()
         {
             int vize1, vize2, proje, final;
